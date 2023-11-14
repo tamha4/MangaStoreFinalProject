@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaStore.Data", "MangaStore.Data\MangaStore.Data.csproj", "{8EC40AED-0E01-4DFB-A74B-69E1D536A473}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaStore.MVC", "MangaStore.MVC\MangaStore.MVC.csproj", "{14E12354-BF36-4451-A192-64BC566B2827}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaStore.Service", "MangaStore.Service\MangaStore.Service.csproj", "{7596790C-5F5D-4C51-A111-5322599A799B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EC40AED-0E01-4DFB-A74B-69E1D536A473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC40AED-0E01-4DFB-A74B-69E1D536A473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC40AED-0E01-4DFB-A74B-69E1D536A473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC40AED-0E01-4DFB-A74B-69E1D536A473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E12354-BF36-4451-A192-64BC566B2827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E12354-BF36-4451-A192-64BC566B2827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E12354-BF36-4451-A192-64BC566B2827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E12354-BF36-4451-A192-64BC566B2827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7596790C-5F5D-4C51-A111-5322599A799B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7596790C-5F5D-4C51-A111-5322599A799B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7596790C-5F5D-4C51-A111-5322599A799B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7596790C-5F5D-4C51-A111-5322599A799B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
