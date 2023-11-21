@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MangaStore.MVC.Models;
+using MangaStore.Model.MangaModel;
 
 namespace MangaStore.MVC.Controllers;
 

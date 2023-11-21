@@ -1,0 +1,30 @@
+@model MangaStore.Model.GenreTypeModel.GenreTypeCreate
+
+@{
+    ViewData["Title"] = "Create a GenreType";
+}
+
+<h1>Create a GenreType</h1>
+<hr />
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="GenreName" class="control-label"></label>
+                <input asp-for="GenreName" class="form-control" />
+                <span asp-validation-for="GenreName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

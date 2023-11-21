@@ -2,6 +2,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MangaStore.Data\MangaStore.Data.csproj" />
+    <ProjectReference Include="..\MangaStore.Model\MangaStore.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <PropertyGroup>

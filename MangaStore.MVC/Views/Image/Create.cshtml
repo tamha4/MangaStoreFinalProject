@@ -1,0 +1,16 @@
+@model MangaStore.Model.ImageModel.ImageCreate
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Upload Images</h2>
+
+<form asp-controller="Image" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="ImageData" for="file">Choose File</label>
+        <input asp-for="ImageData" type="file" name="file" id="file" />
+        <span asp-validation-for="ImageData" class="text-danger"></span>
+    </div>
+    <button type="submit">Upload</button>
+</form>

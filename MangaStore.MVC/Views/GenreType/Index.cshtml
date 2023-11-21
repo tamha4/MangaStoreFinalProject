@@ -1,0 +1,30 @@
+@model IEnumerable<MangaStore.Model.GenreTypeModel.GenreTypeListItem>
+
+@{
+    ViewData["Title"] = "GenreType Index";
+}
+
+<h1>GenreType Index</h1>
+<p>
+    <a asp-action="Create">Create A GenreType</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GenreName)
+        </th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </th>
+            <th>
+                @Html.ActionLink("Edit", "Edit", "GenreType", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", "GenreType", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", "GenreType", new {id = item.Id}) |            </th>
+        </tr>
+    }
+</table>
