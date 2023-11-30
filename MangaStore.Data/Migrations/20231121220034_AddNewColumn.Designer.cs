@@ -3,6 +3,7 @@ using MangaStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangaStore.Data.Migrations
 {
     [DbContext(typeof(MangaStoreDbContext))]
-    partial class MangaStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121220034_AddNewColumn")]
+    partial class AddNewColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,7 +166,7 @@ namespace MangaStore.Data.Migrations
                     b.HasOne("MangaStore.Data.GenreType", "GenreType")
                         .WithMany()
                         .HasForeignKey("GenreTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MangaStore.Data.Image", "Image")
@@ -182,7 +185,7 @@ namespace MangaStore.Data.Migrations
                     b.HasOne("MangaStore.Data.Manga", "Mangas")
                         .WithMany("Stores")
                         .HasForeignKey("MangaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Mangas");
@@ -193,13 +196,13 @@ namespace MangaStore.Data.Migrations
                     b.HasOne("MangaStore.Data.Manga", "Manga")
                         .WithMany("StoreInventories")
                         .HasForeignKey("MangaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MangaStore.Data.Store", "Store")
                         .WithMany("StoreInventories")
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Manga");

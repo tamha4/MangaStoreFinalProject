@@ -13,6 +13,9 @@ namespace MangaStore.Model.MangaModel
         [Required, MaxLength(100)]
         public string Author { get; set; }
 
+        [Required, MaxLength(1000)]
+        public string Description { get; set; }
+
         [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid price.")]
         public double Price { get; set; }
 
@@ -28,8 +31,7 @@ namespace MangaStore.Model.MangaModel
         [Required]
         public int ImageId { get; set; }
 
-        // [Display(Name = "Manga Image")]
-        // [Required(ErrorMessage = "Please select a manga image.")]
-        // public byte[] ImageData { get; set; }
+        [Required]
+        public int ImageFile {get; set;}
     }
 }

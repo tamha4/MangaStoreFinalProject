@@ -17,6 +17,9 @@ namespace MangaStore.Model.MangaModel
         [Required, MaxLength(100)]
         public string Author { get; set; }
 
+        [Required, MaxLength(1000)]
+        public string Description { get; set; }
+
         public double Price { get; set; }
         public int ItemsInStock { get; set; }
         
@@ -24,12 +27,12 @@ namespace MangaStore.Model.MangaModel
         public int GenreTypeId {get; set;}
 
         [Required]
-        public int GenreTypeName {get; set;}
+        public string GenreTypeName {get; set;}
 
         [Required]
         public int ImageId { get; set; }
 
         [Required]
-        public byte[] ImageData {get; set;}
+        public byte[] ImageFile {get; set;}
     }
 }

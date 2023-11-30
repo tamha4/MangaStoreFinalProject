@@ -13,6 +13,9 @@ namespace MangaStore.Model.MangaModel
         [Required(ErrorMessage = "Author is required")]
         public string Author { get; set; }
 
+        [Required(ErrorMessage = "Description is required"), MaxLength(1000)]
+        public string Description { get; set; }
+
         [Required(ErrorMessage = "Price is required")]
         public double Price { get; set; }
 
@@ -28,7 +31,9 @@ namespace MangaStore.Model.MangaModel
         [Required]
         public int ImageId {get; set;}
 
-        // [Required(ErrorMessage = "ImageData is required")]
-        // public byte[] ImageData { get; set; }
+        [Required(ErrorMessage = "ImageFile is required")]
+        public byte[] ImageFile { get; set; }
+
+
     }
 }

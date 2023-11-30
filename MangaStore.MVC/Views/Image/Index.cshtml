@@ -2,7 +2,7 @@
 
 <h2>Images</h2>
 <p>
-    <a asp-action="Create">Create An Image</a>
+    <a asp-action="Create">Upload An Image</a>
 </p>
 
 <div class="row">
@@ -12,9 +12,14 @@
             <div class="card">
                 <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" alt="Image" class="card-img-top" />
                 <div class="card-body">
-                    <!-- You can add more card content here if needed -->
+                    <div class="btn-group" role="group" aria-label="Actions">
+                        <a class="btn btn-primary" asp-controller="Image" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-warning" asp-controller="Image" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger" asp-controller="Image" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
                 </div>
             </div>
         </div>
     }
 </div>
+

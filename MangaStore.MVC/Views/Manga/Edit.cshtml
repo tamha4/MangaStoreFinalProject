@@ -1,14 +1,13 @@
-@model MangaStore.Model.MangaModel.MangaCreate
+@model MangaStore.Model.MangaModel.MangaEdit
 
 @{
-    ViewData["Title"] = "Create A Manga";
+    ViewData["Title"] = "Edit Manga";
 }
 
-<h1>Create a Manga</h1>
-<hr />
+<h2>Edit Manga</h2>
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-action="Edit" asp-controller="Manga" method="post">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -36,39 +35,41 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" class="form-control" type="number" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="ItemsInStock" class="control-label"></label>
-                <input asp-for="ItemsInStock" class="form-control" />
+                <input asp-for="ItemsInStock" class="form-control" type="number" />
                 <span asp-validation-for="ItemsInStock" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="GenreTypeId" class="control-label"></label>
-                <input asp-for="GenreTypeId" class="form-control" />
+                <input asp-for="GenreTypeId" class="form-control" type="number" />
                 <span asp-validation-for="GenreTypeId" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="ImageId" class="control-label"></label>
-                <input asp-for="ImageId" class="form-control" />
+                <input asp-for="ImageId" class="form-control" type="number" />
                 <span asp-validation-for="ImageId" class="text-danger"></span>
             </div>
         </div>
     </div>
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </form>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-@section Scripts{
+
+@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

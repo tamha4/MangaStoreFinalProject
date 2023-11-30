@@ -1,0 +1,28 @@
+@model MangaStore.Model.ImageModel.ImageEdit
+
+@{
+    ViewData["Title"] = "Edit an Image";
+}
+
+<h2>Edit An Image</h2>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-controller="Image" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="ImageData" for="file">Choose File</label>
+        <input asp-for="ImageData" type="file" name="file" id="file" />
+        <span asp-validation-for="ImageData" class="text-danger"></span>
+    </div>
+<div class="form-group">
+    <label asp-for="Id" class="control-label"></label>
+    <input asp-for="Id" class="form-control" />
+    <span asp-validation-for="Id" class="text-danger"></span>
+</div>
+
+    <button type="submit">Save</button>
+</form>
+<div>
+    <a asp-action="Index" class="back-to-list">Back to List</a>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,19 @@
+@model MangaStore.Model.ImageModel.ImageDetail
+
+@{
+    ViewData["Title"] = "Image Detail";
+}
+
+<h2>Image Details</h2>
+
+<div class="card">
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImageData)" alt="Image" class="card-img-top" />
+    <div class="card-body">
+        <p class="card-text"><strong>Id:</strong> @Model.Id</p>
+    </div>
+</div>
+
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
+

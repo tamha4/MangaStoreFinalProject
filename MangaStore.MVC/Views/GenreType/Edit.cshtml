@@ -1,7 +1,7 @@
-@model MangaStore.Model.GenreTypeModel.GenreTypeCreate
+@model MangaStore.Model.GenreTypeModel.GenreTypeEdit
 
 @{
-    ViewData["Title"] = "Create a GenreType";
+    ViewData["Title"] = "Edit GenreType";
 }
 
 <style>
@@ -68,18 +68,23 @@
     }
 </style>
 
-<h1>Create a GenreType</h1>
+<h1>Edit a GenreType</h1>
 <hr />
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<form asp-action="Create">
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Id" class="control-label"></label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
     <div class="form-group">
         <label asp-for="GenreName" class="control-label"></label>
         <input asp-for="GenreName" class="form-control" />
         <span asp-validation-for="GenreName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </form>
 <div>

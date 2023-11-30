@@ -18,6 +18,9 @@ namespace MangaStore.Data
 
         [Required, MaxLength(100)]
         public string Author { get; set; }
+        
+        [Required, MaxLength(1000)]
+        public string Description { get; set; }
 
         [Required]
         public double Price { get; set; }
@@ -29,21 +32,27 @@ namespace MangaStore.Data
         public int GenreTypeId { get; set; }
 
         [ForeignKey("GenreTypeId")]
-        public GenreType GenreType { get; set; }
+        public virtual GenreType GenreType { get; set; }
 
         [Required]
         public int ImageId {get; set;}
         
         [ForeignKey("ImageId")]
-        public Image Image {get; set;}
-
-        // public byte[] ImageData {get; set;}
+        public virtual Image Image {get; set;}
 
         [NotMapped]
-        public string GenreTypeName => GenreType?.GenreName;
+        public byte[] ImageFile {
+            get { return Image?.ImageData; }
+            set {}
+        }
+
+        [NotMapped]
+        public string GenreTypeName {
+            get {return GenreType?.GenreName; }
+            set {}
+        } 
 
         public virtual List<Store> Stores { get; set; } = new List<Store>();
 
-        public List<StoreInventory> StoreInventories { get; set; }
     }
 }

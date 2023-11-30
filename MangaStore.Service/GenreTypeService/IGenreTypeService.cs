@@ -11,6 +11,7 @@ namespace MangaStore.Service.GenreTypeService
         Task<bool> CreateGenreType(GenreTypeCreate model);
         Task<List<GenreTypeListItem>> GetAllGenreTypes();
         Task<GenreTypeDetail> GetGenreTypeById(int id);
+        Task<GenreTypeEdit> GetTypeEditById(int id);
         Task<bool> UpdateGenreType(GenreTypeEdit model);
         Task<bool> DeleteGenreType(int id);
     }

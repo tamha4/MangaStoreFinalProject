@@ -12,6 +12,7 @@ namespace MangaStore.Service.MangaS
         Task<bool> CreateManga(MangaCreate model);
         Task<List<MangaListItem>> GetAllMangas();
         Task<MangaDetail> GetMangaById(int id);
+        Task<MangaEdit> GetMangaEditById(int id);
         Task<bool> UpdateManga(MangaEdit model);
         Task<bool> DeleteManga(int id);
     }

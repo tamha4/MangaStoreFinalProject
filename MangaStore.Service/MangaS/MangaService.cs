@@ -19,7 +19,6 @@ namespace MangaStore.Service.MangaS
 
         public async Task<bool> CreateManga(MangaCreate model)
         {
-            // Ensure the model state is valid before proceeding
             if (!ValidateModel(model))
                 return false;
 
@@ -27,6 +26,7 @@ namespace MangaStore.Service.MangaS
             {
                 Name = model.Name,
                 Author = model.Author,
+                Description = model.Description,
                 Price = model.Price,
                 ItemsInStock = model.ItemsInStock,
                 GenreTypeId = model.GenreTypeId,
@@ -41,9 +41,6 @@ namespace MangaStore.Service.MangaS
 
         private bool ValidateModel(MangaCreate model)
         {
-            // Add any additional validation logic here
-            // Return false if validation fails
-
             return true;
         }
 
@@ -58,41 +55,123 @@ namespace MangaStore.Service.MangaS
 
 
 
-        public Task<bool> DeleteManga(int id)
+        public async Task<bool> DeleteManga(int id)
         {
-            throw new NotImplementedException();
+            var mangaEntity = await _context.Mangas.FindAsync(id);
+
+            if (mangaEntity is null)
+                return false;
+
+            _context.Mangas.Remove(mangaEntity);
+
+            return await _context.SaveChangesAsync() == 1;
         }
 
-    public async Task<List<MangaListItem>> GetAllMangas()
-    {
-        List<MangaListItem> mangas = await _context.Mangas
-            .Include(s => s.Image)
-            .Include(s => s.GenreType)
-            .Include(s => s.Stores) 
-            .Select(s => new MangaListItem()
+
+        public async Task<List<MangaListItem>> GetAllMangas()
+        {
+            List<MangaListItem> mangas = await _context.Mangas
+                .Include(s => s.Image)
+                .Include(s => s.GenreType)
+                .Include(s => s.Stores) 
+                .Select(s => new MangaListItem()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Author = s.Author,
+                    Description = s.Description,
+                    Price = s.Price,
+                    ItemsInStock = s.ItemsInStock,
+                    GenreTypeId = s.GenreTypeId,
+                    GenreTypeName = s.GenreTypeName,
+                    ImageId = s.ImageId,
+                    ImageFile = s.ImageFile,
+                }).ToListAsync();
+
+            return mangas;
+        }
+
+
+        public async Task<MangaDetail> GetMangaById(int id)
+        {
+            MangaDetail mangaDetail = await _context.Mangas
+                .Include( s => s.Image)
+                .Include( s => s.GenreType)
+                .Include( s => s.Stores)
+                .Where( s => s.Id == id)
+                .Select( s => new MangaDetail()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Author = s.Author,
+                    Description = s.Description,
+                    Price = s.Price,
+                    ItemsInStock = s.ItemsInStock,
+                    GenreTypeId = s.GenreTypeId,
+                    GenreTypeName = s.GenreTypeName,
+                    ImageId = s.ImageId,
+                    ImageFile = s.ImageFile,
+            }).FirstOrDefaultAsync();
+
+            return mangaDetail;
+        }
+
+        public async Task<bool> UpdateManga(MangaEdit model)
+        {
+            try
             {
-                Id = s.Id,
-                Name = s.Name,
-                Author = s.Author,
-                Price = s.Price,
-                ItemsInStock = s.ItemsInStock,
-                GenreTypeId = s.GenreTypeId,
-                GenreTypeName = s.GenreTypeName,
-                ImageId = s.ImageId,
-            }).ToListAsync();
+                Manga manga = await _context.Mangas.FindAsync(model.Id);
 
-        return mangas;
-    }
+                if (manga == null)
+                    return false;
 
+                manga.Name = model.Name;
+                manga.Author = model.Author;
+                manga.Description = model.Description;
+                manga.Price = model.Price;
+                manga.ItemsInStock = model.ItemsInStock;
+                manga.GenreTypeId = model.GenreTypeId;
+                // manga.GenreTypeName = model.GenreTypeName;
+                manga.ImageId = model.ImageId;
+                // manga.ImageFile = model.ImageFile;
 
-        public Task<MangaDetail> GetMangaById(int id)
-        {
-            throw new NotImplementedException();
+                int numberOfChanges = await _context.SaveChangesAsync();
+
+                return numberOfChanges == 1;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details
+                Console.WriteLine($"Error updating manga: {ex.Message}");
+                return false;
+            }
         }
 
-        public Task<bool> UpdateManga(MangaEdit model)
+
+        public async Task<MangaEdit> GetMangaEditById(int id)
         {
-            throw new NotImplementedException();
+            MangaEdit mangaEdit = await _context.Mangas
+                        .Include( s => s.Image)
+                        .Include( s => s.GenreType)
+                        .Where( s => s.Id == id)
+                        .Select( s => new MangaEdit()
+                        {
+                            Id = s.Id,
+                            Name = s.Name,
+                            Author = s.Author,
+                            Description = s.Description,
+                            Price = s.Price,
+                            ItemsInStock = s.ItemsInStock,
+                            GenreTypeId = s.GenreTypeId,
+                            // GenreTypeName = s.GenreTypeName,
+                            ImageId = s.ImageId,
+                            // ImageFile = s.ImageFile,
+                })
+                .FirstOrDefaultAsync();
+
+            return mangaEdit;
         }
+
+
     }
 }

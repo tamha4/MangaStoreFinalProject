@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaStore.MVC", "MangaStor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaStore.Service", "MangaStore.Service\MangaStore.Service.csproj", "{7596790C-5F5D-4C51-A111-5322599A799B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaStore.Model", "MangaStore.Model\MangaStore.Model.csproj", "{525D155E-FBE6-4049-B383-8C516F8215BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{7596790C-5F5D-4C51-A111-5322599A799B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7596790C-5F5D-4C51-A111-5322599A799B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7596790C-5F5D-4C51-A111-5322599A799B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525D155E-FBE6-4049-B383-8C516F8215BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{525D155E-FBE6-4049-B383-8C516F8215BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525D155E-FBE6-4049-B383-8C516F8215BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{525D155E-FBE6-4049-B383-8C516F8215BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

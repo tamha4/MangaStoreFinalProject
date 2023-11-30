@@ -26,9 +26,16 @@ namespace MangaStore.Service.GenreTypeService
             return await _context.SaveChangesAsync() == 1;
         }
 
-        public Task<bool> DeleteGenreType(int id)
+        public async Task<bool> DeleteGenreType(int id)
         {
-            throw new NotImplementedException();
+            var genreTypeEntity = await _context.GenreType.FindAsync(id);
+
+            if(genreTypeEntity is null)
+                return false;
+
+            _context.GenreType.Remove(genreTypeEntity);
+
+            return await _context.SaveChangesAsync() == 1;
         }
 
         public async Task<List<GenreTypeListItem>> GetAllGenreTypes()
@@ -42,14 +49,48 @@ namespace MangaStore.Service.GenreTypeService
             return genreTypes;
         }
 
-        public Task<GenreTypeDetail> GetGenreTypeById(int id)
+        public async Task<GenreTypeDetail> GetGenreTypeById(int id)
         {
-            throw new NotImplementedException();
+            GenreTypeDetail genreTypeDetail = await _context.GenreType
+                .Where(m => m.Id == id)
+                .Select(m => new GenreTypeDetail()
+                {
+                    Id = m.Id,
+                    GenreName = m.GenreName,
+                }).FirstOrDefaultAsync();
+
+            return genreTypeDetail;
         }
 
-        public Task<bool> UpdateGenreType(GenreTypeEdit model)
+        public async Task<bool> UpdateGenreType(GenreTypeEdit model)
         {
-            throw new NotImplementedException();
+            GenreType genreType = await _context.GenreType.FindAsync(model.Id);
+
+            if (genreType is null)
+                return false;
+
+            genreType.GenreName = model.GenreName;
+
+            int numberOfChanges = await _context.SaveChangesAsync();
+
+            return numberOfChanges == 1;
         }
-    }
+
+        public async Task<GenreTypeEdit> GetTypeEditById(int id)
+        {
+            GenreTypeEdit genreTypeEdit = await _context.GenreType
+                .Where(m => m.Id == id)
+                .Select(m => new GenreTypeEdit()
+                {
+                    Id = m.Id,
+                    GenreName = m.GenreName,
+                }).FirstOrDefaultAsync();
+
+            return genreTypeEdit;
+
+        }
+
+
+
+    }   
 }

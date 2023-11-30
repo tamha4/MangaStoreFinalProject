@@ -1,0 +1,18 @@
+@model MangaStore.Model.GenreTypeModel.GenreTypeDetail
+
+@{
+    ViewData["Title"] = "GenreType Detail";
+}
+
+<h2>GenreType Detail</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p class="card-text"><strong>Id:</strong> @Model.Id</p>
+        <p class="card-text"><strong>GenreType:</strong> @Model.GenreName</p>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
