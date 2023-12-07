@@ -22,16 +22,15 @@ namespace MangaStore.MVC.Controllers
             _service = service;
         }
 
+        //* Index
+
         public async Task<IActionResult> Index()
         {
             var images = await _service.GetImages();
-
-            // Filter out replaced images
-            // images = images.Where(image => !_service.IsImageReplaced(image.Id).GetAwaiter().GetResult()).ToList();
-
             return View(images);
         }
 
+        //* Create
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -66,6 +65,8 @@ namespace MangaStore.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        //* Details
+
         public async Task<IActionResult> Details(int id)
         {
             ImageDetail imageDetail = await _service.GetImageById(id);
@@ -76,8 +77,9 @@ namespace MangaStore.MVC.Controllers
             return View(imageDetail);
         }
 
-        [HttpGet]
+        //* Updating
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             ImageEdit imageEdit = await _service.GetImageEditById(id);
@@ -111,16 +113,18 @@ namespace MangaStore.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-    [HttpGet]
-    public async Task<IActionResult> Delete(int id)
-    {
-        ImageDetail imageDetail = await _service.GetImageById(id);
+        //* Delete
 
-        if (imageDetail is null)
-            return RedirectToAction(nameof(Index));
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            ImageDetail imageDetail = await _service.GetImageById(id);
 
-        return View(imageDetail);
-    }
+            if (imageDetail is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(imageDetail);
+        }
 
         private bool IsImageAssocited(int imageId)
         {

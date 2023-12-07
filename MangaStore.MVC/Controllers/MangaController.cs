@@ -20,12 +20,15 @@ namespace MangaStore.MVC.Controllers
             _context = context;
         }
 
+        //* Index
+
         public async Task<IActionResult> Index()
         {
             List<MangaListItem> mangas = await _service.GetAllMangas();
             return View(mangas);
         }
 
+        //* Create
 
         [HttpGet]
         public IActionResult Create()
@@ -44,6 +47,8 @@ namespace MangaStore.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //* Details
+
         [ActionName("Details")]
         public async Task<IActionResult> MangaDetail(int id)
         {
@@ -56,6 +61,8 @@ namespace MangaStore.MVC.Controllers
 
             return View(mangaDetail);
         }
+
+        //* Updating
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -85,6 +92,8 @@ namespace MangaStore.MVC.Controllers
 
             return RedirectToAction("Details", new { id = model.Id });
         }
+
+        //* Delete
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)

@@ -17,11 +17,15 @@ namespace MangaStore.MVC.Controllers
             _service = service;
         }
 
+        //* Index
+
         public async Task<IActionResult> Index()
         {
             List<GenreTypeListItem> genreTypes = await _service.GetAllGenreTypes();
             return View(genreTypes);
         }
+
+        //* Create
 
         [HttpGet]
         public IActionResult Create()
@@ -39,6 +43,8 @@ namespace MangaStore.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //* Details
+
         [ActionName("Details")]
         public async Task<IActionResult> GenreTypeDetail(int id)
         {
@@ -49,6 +55,8 @@ namespace MangaStore.MVC.Controllers
 
             return View(genreTypeDetail);
         }
+
+        //* Updating
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -74,6 +82,8 @@ namespace MangaStore.MVC.Controllers
             
             return RedirectToAction(nameof(Index));
         }
+
+        //* Delete
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
