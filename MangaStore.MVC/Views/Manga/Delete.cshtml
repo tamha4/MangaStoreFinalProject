@@ -4,17 +4,30 @@
     ViewData["Title"] = "Delete Manga";
 }
 
+<style>
+    .card-img-top {
+        max-width: 100%; 
+        height: auto;
+    }
+</style>
+
 <h2>Delete Manga</h2>
 
-<div class="card">
-    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImageFile)" alt="Image" class="card-img-top" />
-    <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text"><strong>Description:</strong> @Model.Description</p>
-        <p class="card-text"><strong>Author:</strong> @Model.Author</p>
-        <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
-        <p class="card-text"><strong>Items in Stock:</strong> @Model.ItemsInStock</p>
-        <p class="card-text"><strong>Genre:</strong> @Model.GenreTypeName</p>
+<div class="row">
+    <div class="col-md-6">
+        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImageFile)" alt="Image" class="card-img-top" />
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text"><strong>Description:</strong> @Model.Description</p>
+                <p class="card-text"><strong>Author:</strong> @Model.Author</p>
+                <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
+                <p class="card-text"><strong>Items in Stock:</strong> @Model.ItemsInStock</p>
+                <p class="card-text"><strong>Genre:</strong> @Model.GenreTypeName</p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -28,6 +41,20 @@
     </form>
 </div>
 
-<p>
+<p class="back-to-list">
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<style>
+        .back-to-list {
+        margin-top: 20px;
+        display: block;
+        text-decoration: none;
+        color: #007bff;
+        transition: color 0.3s;
+    }
+
+    .back-to-list:hover {
+        color: #0056b3;
+    }
+</style>

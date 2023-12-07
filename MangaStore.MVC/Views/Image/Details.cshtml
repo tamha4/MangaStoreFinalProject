@@ -4,6 +4,55 @@
     ViewData["Title"] = "Image Detail";
 }
 
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        margin: 0;
+        padding: 20px; /* Add padding to the body for better spacing */
+    }
+
+    .card {
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden; /* Ensure rounded corners are applied */
+    }
+
+    .card-img-top {
+        max-width: 100%;
+        height: auto;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-text {
+        margin-bottom: 0;
+    }
+
+    .back-link {
+        display: inline-block;
+        padding: 10px 15px;
+        color: #2a2525;
+        text-decoration: none;
+        background-color: rgb(200, 203, 211);
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+    }
+
+    .back-link:hover {
+        text-decoration: none;
+        background-color: black;
+    }
+</style>
+
 <h2>Image Details</h2>
 
 <div class="card">
@@ -13,7 +62,6 @@
     </div>
 </div>
 
-<p>
+<p class="back-link">
     <a asp-action="Index">Back to List</a>
 </p>
-

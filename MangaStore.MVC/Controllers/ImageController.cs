@@ -4,23 +4,34 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MangaStore.Model.ImageModel;
 using MangaStore.Service.ImageService;
+using MangaStore.Data;
+using Microsoft.EntityFrameworkCore;
+using MangaStore.Model.MangaModel;
 
 namespace MangaStore.MVC.Controllers
 {
     public class ImageController : Controller
     {
+        private readonly MangaStoreDbContext _context;
+
         private readonly IImageService _service;
 
-        public ImageController(IImageService service)
+        public ImageController(IImageService service, MangaStoreDbContext context)
         {
+            _context = context;
             _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
             var images = await _service.GetImages();
+
+            // Filter out replaced images
+            // images = images.Where(image => !_service.IsImageReplaced(image.Id).GetAwaiter().GetResult()).ToList();
+
             return View(images);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -29,8 +40,11 @@ namespace MangaStore.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile file)
+        public async Task<IActionResult> Create(IFormFile file, MangaCreate mangaCreateModel)
         {
+            int? createdImageId = null;
+
+            // Your existing code for creating an image
             if (file != null && file.Length > 0)
             {
                 using (var memoryStream = new MemoryStream())
@@ -43,9 +57,11 @@ namespace MangaStore.MVC.Controllers
                         ImageData = imageData
                     };
 
-                    await _service.CreateImage(imageCreateModel);
+                    createdImageId = await _service.CreateImage(imageCreateModel);
                 }
             }
+
+            mangaCreateModel.ImageId = (int)createdImageId;
 
             return RedirectToAction("Index");
         }
@@ -95,16 +111,22 @@ namespace MangaStore.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        ImageDetail imageDetail = await _service.GetImageById(id);
+
+        if (imageDetail is null)
+            return RedirectToAction(nameof(Index));
+
+        return View(imageDetail);
+    }
+
+        private bool IsImageAssocited(int imageId)
         {
-            ImageDetail imageDetail = await _service.GetImageById(id);
+            bool isAssocitedWithManga = _context.Mangas.Any( m => m.ImageId == imageId);
 
-            if(imageDetail is null)
-                return RedirectToAction(nameof(Index));
-
-            return View(imageDetail);
-        
+            return isAssocitedWithManga;
         }
 
         [HttpPost]
@@ -115,16 +137,52 @@ namespace MangaStore.MVC.Controllers
             if (imageDetail is null)
                 return RedirectToAction(nameof(Index));
 
+            // If the image is associated with manga, prompt the user to confirm
+            bool isAssocitedWithManga = await _service.IsImageReplaced(id);
+
+            if (isAssocitedWithManga)
+            {
+                // If the image is associated with manga, prompt the user to confirm
+                return View("ConfirmReplace", imageDetail);
+            }
+
+            // If the image is not associated with manga, proceed with deletion
             bool isSuccess = await _service.DeleteIMage(model.Id);
 
-            if(!isSuccess)
+            if (!isSuccess)
                 return RedirectToAction(nameof(Index));
-            
+
             return RedirectToAction(nameof(Index));
-            
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            // Check if the image is associated with any manga
+            bool isAssocitedWithManga = await _service.IsImageReplaced(id);
 
+            if (isAssocitedWithManga)
+            {
+                // Update associated mangas to have null ImageId
+                await _service.UpdateAssociatedMangas(id, newImageId: null);
+
+                // Proceed with deletion after updating mangas
+                bool isSuccess = await _service.DeleteIMage(id);
+
+                if (!isSuccess)
+                    return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            // If the image is not associated with manga, proceed with deletion without updating mangas
+            bool isSuccessNoUpdate = await _service.DeleteIMage(id);
+
+            if (!isSuccessNoUpdate)
+                return RedirectToAction(nameof(Index));
+
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }

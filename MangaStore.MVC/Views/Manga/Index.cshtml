@@ -4,31 +4,66 @@
     ViewData["Title"] = "Manga Index";
 }
 
-<h1>Manga Index</h1>
-<p>
-    <a asp-action="Create">Create A Manga </a>
-</p>
-
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card">
+<div class="container">
+    <p>
+        <a asp-action="Create" class="create-link">Create A Store</a>
+    </p>
+    <h1 class="text-center mt-5">Welcome to Our Manga Store</h1>
+    <p class="text-center">
+        Explore our collection of captivating manga. Dive into exciting stories, stunning artwork, and unforgettable characters.
+    </p>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card manga-card">
                     <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageFile)" alt="Image" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text"><strong>Description:</strong> @item.Description</p>
-                    <p class="card-text"><strong>Author:</strong> @item.Author</p>
-                    <p class="card-text"><strong>Price:</strong> $@item.Price</p>
-                    <p class="card-text"><strong>Items in Stock:</strong> @item.ItemsInStock</p>
-                    <p class="card-text"><strong>Genre:</strong> @item.GenreTypeName</p>
-                    <div class="btn-group" role="group" aria-label="Actions">
-                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text manga-description">@item.Description</p>
+                        <p class="card-text"><strong>Author:</strong> @item.Author</p>
+                        <p class="card-text"><strong>Price:</strong> $@item.Price</p>
+                        <p class="card-text"><strong>Items in Stock:</strong> @item.ItemsInStock</p>
+                        <p class="card-text"><strong>Genre:</strong> @item.GenreTypeName</p>
+                        <div class="text-center">
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+<style>
+    .manga-card {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .manga-card:hover {
+        transform: scale(1.05);
+    }
+
+    .manga-description {
+        max-height: 80px;
+        overflow: hidden;
+    }
+
+        .create-link {
+            display: inline-block;
+            padding: 10px 15px;
+            color: #fff;
+            text-decoration: none;
+            background-color: RoyalBlue;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .create-link:hover {
+            background-color: DodgerBlue;
+        }
+</style>

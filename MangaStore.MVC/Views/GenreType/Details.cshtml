@@ -13,6 +13,20 @@
     </div>
 </div>
 
-<p>
+<div class="back-to-list">
     @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
+
+<style>
+        .back-to-list {
+        margin-top: 20px;
+        display: block;
+        text-decoration: none;
+        color: #007bff;
+        transition: color 0.3s;
+    }
+
+    .back-to-list:hover {
+        color: #0056b3;
+    }
+</style>

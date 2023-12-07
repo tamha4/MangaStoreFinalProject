@@ -1,0 +1,28 @@
+@model MangaStore.Model.ImageModel.ImageDetail
+
+@{
+    ViewData["Title"] = "Confirm Replace";
+}
+
+<h2>Confirm Replace Image</h2>
+
+<p>
+    This image is associated with one or more mangas. If you proceed, the association will be maintained.
+</p>
+
+<div class="card">
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImageData)" alt="Image" class="card-img-top" />
+    <div class="card-body">
+        <p class="card-text"><strong>Id:</strong> @Model.Id</p>
+
+        <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -43,5 +43,69 @@ namespace MangaStore.MVC.Controllers
             await _service.CreateStore(model);
             return RedirectToAction(nameof(Index));
         }
+
+        [ActionName("Details")]
+        public async Task<IActionResult> StoreDetail(int id)
+        {
+            StoreDetail storeDetail = await _service.GetAllStoresById(id);
+
+            if(storeDetail is null)
+                return RedirectToAction(nameof(Index));
+            
+            return View(storeDetail);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            StoreEdit storeEdit = await _service.GetStoreEditById(id);
+
+            if(storeEdit is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(storeEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(StoreEdit model)
+        {
+            if(!ModelState.IsValid)
+                return View(model);
+            
+            bool isSuccess = await _service.UpdateStores(model);
+
+            if(!isSuccess)
+                return View(model);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            StoreDetail storeDetail = await _service.GetAllStoresById(id);
+
+            if(storeDetail is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(storeDetail);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, StoreDetail model)
+        {
+            StoreDetail storeDetail = await _service.GetAllStoresById(model.Id);
+
+            if(storeDetail is null)
+                return RedirectToAction(nameof(Index));
+
+            bool isSuccess = await _service.DeleteStore(model.Id);
+
+            if(!isSuccess)
+                return RedirectToAction(nameof(Index));
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
