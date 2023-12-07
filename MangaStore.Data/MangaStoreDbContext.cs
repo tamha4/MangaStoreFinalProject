@@ -15,5 +15,14 @@ namespace MangaStore.Data
         public DbSet<GenreType> GenreType {get; set;}
         public DbSet<StoreInventory> StoreInventories {get; set;}
         public DbSet<Image> Images {get; set;}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Manga>()
+        .HasOne(m => m.Image)
+        .WithMany()
+        .HasForeignKey(m => m.ImageId)
+        .OnDelete(DeleteBehavior.Cascade);
+}
+
     }
 }

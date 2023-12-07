@@ -35,9 +35,16 @@ namespace MangaStore.Service.StoreService
         }
 
 
-        public Task<bool> DeleteStore(int id)
+        public async Task<bool> DeleteStore(int id)
         {
-            throw new NotImplementedException();
+            var storeEntity = await _context.Stores.FindAsync(id);
+
+            if(storeEntity is null)
+                return false;
+
+            _context.Stores.Remove(storeEntity);
+
+            return await _context.SaveChangesAsync() == 1;
         }
 
         public async Task<List<StoreListItem>> GetAllStores()
@@ -56,14 +63,53 @@ namespace MangaStore.Service.StoreService
             return stores;
         }
 
-        public Task<StoreDetail> GetAllStoresById(int id)
+        public async Task<StoreDetail> GetAllStoresById(int id)
         {
-            throw new NotImplementedException();
+            StoreDetail storeDetail = await _context.Stores
+                .Where(s => s.Id == id)
+                .Select(s => new StoreDetail()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Address = s.Address,
+                    PhoneNumber = s.PhoneNumber,
+                    MangaId = s.MangaId,
+                }).FirstOrDefaultAsync();
+            
+            return storeDetail;
         }
 
-        public Task<bool> UpdateStores(StoreEdit model)
+        public async Task<StoreEdit> GetStoreEditById(int id)
         {
-            throw new NotImplementedException();
+            StoreEdit storeEdit = await _context.Stores
+                .Where(s => s.Id == id)
+                .Select(s => new StoreEdit()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Address = s.Address,
+                    PhoneNumber = s.PhoneNumber,
+                    MangaId = s.MangaId,
+                }).FirstOrDefaultAsync();
+            
+            return storeEdit;
+        }
+
+        public async Task<bool> UpdateStores(StoreEdit model)
+        {
+            Store store = await _context.Stores.FindAsync(model.Id);
+
+            if(store is null)
+                return false;
+            
+            store.Name = model.Name;
+            store.Address = model.Address;
+            store.PhoneNumber = model.PhoneNumber;
+            store.MangaId = model.MangaId;
+
+            int numberOfChanges = await _context.SaveChangesAsync();
+
+            return numberOfChanges == 1;
         }
     }
 }

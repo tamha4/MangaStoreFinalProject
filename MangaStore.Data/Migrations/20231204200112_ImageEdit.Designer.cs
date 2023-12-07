@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangaStore.Data.Migrations
 {
     [DbContext(typeof(MangaStoreDbContext))]
-    [Migration("20231121220034_AddNewColumn")]
-    partial class AddNewColumn
+    [Migration("20231204200112_ImageEdit")]
+    partial class ImageEdit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,8 @@ namespace MangaStore.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("GenreTypeId")
                         .HasColumnType("int");
@@ -172,7 +173,7 @@ namespace MangaStore.Data.Migrations
                     b.HasOne("MangaStore.Data.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("GenreType");
@@ -194,7 +195,7 @@ namespace MangaStore.Data.Migrations
             modelBuilder.Entity("MangaStore.Data.StoreInventory", b =>
                 {
                     b.HasOne("MangaStore.Data.Manga", "Manga")
-                        .WithMany("StoreInventories")
+                        .WithMany()
                         .HasForeignKey("MangaId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -212,8 +213,6 @@ namespace MangaStore.Data.Migrations
 
             modelBuilder.Entity("MangaStore.Data.Manga", b =>
                 {
-                    b.Navigation("StoreInventories");
-
                     b.Navigation("Stores");
                 });
 

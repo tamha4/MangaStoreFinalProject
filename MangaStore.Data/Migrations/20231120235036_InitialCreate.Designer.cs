@@ -168,7 +168,7 @@ namespace MangaStore.Data.Migrations
                     b.HasOne("MangaStore.Data.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("GenreType");

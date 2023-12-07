@@ -10,5 +10,7 @@ namespace MangaStore.Service.StoreService
         Task<StoreDetail> GetAllStoresById(int id);
         Task<bool> UpdateStores(StoreEdit model);
         Task<bool> DeleteStore(int id);
+
+        Task<StoreEdit> GetStoreEditById(int id);
     }
 }

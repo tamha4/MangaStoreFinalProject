@@ -17,17 +17,35 @@ namespace MangaStore.Service.ImageService
         {
             _context = context;
         }
-
-        public async Task<bool> CreateImage(ImageCreate model)
+        public async Task<int?> CreateImage(ImageCreate model, bool isDuplicate = false)
         {
+            // Create a regular image
             Image image = new Image
             {
                 ImageData = model.ImageData,
             };
 
             _context.Images.Add(image);
-            return await _context.SaveChangesAsync() == 1;
-                }
+            await _context.SaveChangesAsync();
+
+            if (isDuplicate)
+            {
+                // Clone the image by creating a new image with the same data
+                Image clonedImage = new Image
+                {
+                    ImageData = model.ImageData,
+                };
+
+                _context.Images.Add(clonedImage);
+                await _context.SaveChangesAsync();
+
+                return clonedImage.Id;
+            }
+
+            return image.Id;
+        }
+
+
         public async Task<bool> DeleteIMage(int id)
         {
             var imageEntity = await _context.Images.FindAsync(id);
@@ -35,10 +53,9 @@ namespace MangaStore.Service.ImageService
             if (imageEntity is null)
                 return false;
 
-            // Remove the Image entity
             _context.Images.Remove(imageEntity);
 
-            return await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() >= 1;
         }
 
 
@@ -77,6 +94,41 @@ namespace MangaStore.Service.ImageService
                 }).ToListAsync();
         }
 
+        public async Task<bool> IsImageReplaced(int imageId)
+        {
+            bool isAssociatedWithManga = await _context.Mangas.AnyAsync(m => m.ImageId == imageId);
+            return isAssociatedWithManga;
+        }
+
+
+        public async Task<bool> ReplaceImage(int imageId, int? newImageId)
+        {
+            var assoicatedMangas = await _context.Mangas.Where(m => m.ImageId == imageId).ToListAsync();
+
+            foreach(var manga in assoicatedMangas)
+            {
+                manga.ImageId = newImageId;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
+        public async Task<bool> UpdateAssociatedMangas(int imageId, int? newImageId)
+        {
+            var assoicatedMangas = await _context.Mangas.Where(m => m.ImageId == imageId).ToListAsync();
+
+            foreach (var manga in assoicatedMangas)
+            {
+                manga.ImageId = newImageId;
+            }
+
+            return await _context.SaveChangesAsync() >= 0; 
+        }
+
+
         public async Task<bool> UpdateImage(ImageEdit model)
         {
             Image image = await _context.Images.FindAsync(model.Id);
@@ -90,5 +142,6 @@ namespace MangaStore.Service.ImageService
 
             return numberOfChanges == 1;
         }
+
     }
 }

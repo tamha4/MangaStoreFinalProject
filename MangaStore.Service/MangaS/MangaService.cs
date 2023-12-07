@@ -84,7 +84,7 @@ namespace MangaStore.Service.MangaS
                     ItemsInStock = s.ItemsInStock,
                     GenreTypeId = s.GenreTypeId,
                     GenreTypeName = s.GenreTypeName,
-                    ImageId = s.ImageId,
+                    ImageId = (int)s.ImageId,
                     ImageFile = s.ImageFile,
                 }).ToListAsync();
 
@@ -109,7 +109,7 @@ namespace MangaStore.Service.MangaS
                     ItemsInStock = s.ItemsInStock,
                     GenreTypeId = s.GenreTypeId,
                     GenreTypeName = s.GenreTypeName,
-                    ImageId = s.ImageId,
+                    ImageId = (int)s.ImageId,
                     ImageFile = s.ImageFile,
             }).FirstOrDefaultAsync();
 
@@ -164,7 +164,7 @@ namespace MangaStore.Service.MangaS
                             ItemsInStock = s.ItemsInStock,
                             GenreTypeId = s.GenreTypeId,
                             // GenreTypeName = s.GenreTypeName,
-                            ImageId = s.ImageId,
+                            ImageId = (int)s.ImageId,
                             // ImageFile = s.ImageFile,
                 })
                 .FirstOrDefaultAsync();
